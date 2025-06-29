@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: PEOPLE
+    database: RAW_DATABASE
+    schema: PEOPLE
+    tables:
+      - name: CUSTOMERS
+      - name: CUSTOMER_FEEDBACKS

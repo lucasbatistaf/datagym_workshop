@@ -1,0 +1,25 @@
+Info Created .vscode/extensions.json with dbt extension recommendation
+Success Project created successfully!
+Info Project name: horrorland
+Info Project directory: horrorland
+Info Setting up your profile...
+Success Profile written to /home/lucasbatista/.dbt/profiles.yml
+Validating profile inputs, adapters, and connection
+
+dbt-fusion 2.0.0-beta.28
+   Loading ~/.dbt/profiles.yml
+ Debugging profile: dev
+ Debugging dbt version: 2.0.0-beta.28
+ Debugging platform: linux x86_64 (unix)
+ Debugging adapter type: snowflake (remote)
+ Debugging dependencies:
+  git: OK
+ Debugging connection:
+  "user": "LUCASBATISTAF",
+  "database": "DEV_DATABASE",
+  "account": "QKWHERH-STB88368",
+  "role": "ACCOUNTADMIN",
+  "warehouse": "COMPUTE_WH",
+  "schema": "DATAGYM"
+ Debugging connection test: OK
+  Debugged All checks passed!
