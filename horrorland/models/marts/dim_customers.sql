@@ -28,7 +28,7 @@ creating_categories as (
         email,
         registration_date,
         case 
-            when is_vip_member then 'VIP Member' 
+            when is_vip_member then 'VIP Member'
             else 'Regular Visitor'
         end as customer_category,
         preferred_scare_level

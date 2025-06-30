@@ -1,8 +1,5 @@
 {{ config(
-    tags=['marts'],
-    materialized='incremental',
-    incremental_strategy='merge',
-    unique_key='ticket_id'
+    tags=['marts']
 ) }}
 
 with feedbacks as (
@@ -66,7 +63,7 @@ select
         when tickets.group_size > 2 then 'Medium Group'
         else 'Small Group'
     end as group_category,
-    round(tickets.ticket_price / tickets.group_size2) as price_per_person,
+    round(tickets.ticket_price / tickets.group_size) as price_per_person,
     feedbacks.rating,
     feedbacks.would_recommend,
     feedbacks.felt_scared,
