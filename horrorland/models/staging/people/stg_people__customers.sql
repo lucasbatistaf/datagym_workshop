@@ -11,7 +11,9 @@ with source as (
         registration_date,
         to_boolean(lower(is_vip_member)) as is_vip_member,
         preferred_scare_level,
-    from {{ source('PEOPLE', 'CUSTOMERS') }}
+        dbt_valid_from,
+        dbt_valid_to,
+        from {{ ref('scd_customers') }}
 )
 
 select *

@@ -1,5 +1,8 @@
 {{ config(
-    tags=['marts']
+    tags=['marts'],
+    materialized='incremental',
+    incremental_strategy='merge',
+    unique_key='ticket_id'
 ) }}
 
 with feedbacks as (

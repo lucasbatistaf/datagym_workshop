@@ -1,0 +1,72 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: >
+      A dimension table containing customer information for the haunted house business.
+      This table includes customer demographics, preferences, and contact information.
+      Only customers with valid email addresses from approved domains are included.
+
+    columns:
+      - name: customer_id
+        description: Unique identifier for each customer
+        tests:
+          - unique
+          - not_null
+
+      - name: age
+        description: Customer's age in years
+
+      - name: email
+        description: Customer's email address (must be from an approved domain)
+
+      - name: is_valid_email
+        description: Boolean indicating if the customer's email is valid and from an approved domain
+        tests:
+          - not_null
+
+      - name: gender
+        description: Customer's gender (standardized to Male, Female, or Other)
+        tests:
+          - not_null
+
+      - name: age_group
+        description: Customer's age group category (Under 18, 18-24, 25-34, 35-49, 50+)
+        tests:
+          - not_null
+
+      - name: customer_category
+        description: Customer's status (VIP Member or Regular Visitor)
+        tests:
+          - not_null
+
+      - name: preferred_scare_level
+        description: Customer's preferred level of scariness (1-5)
+        tests:
+          - not_null
+
+      - name: registration_date
+        description: Date when the customer registered
+        tests:
+          - not_null
+
+unit_tests:
+  - name: test_email_validation
+    model: dim_customers
+    description: "Test email validation logic including format, @ symbol count, and valid domains"
+    given:
+      - input: ref('stg_people__customers')
+        rows:
+          - {customer_id: 1, email: "valid@example.com", age: 25, gender: "M", is_vip_member: true, preferred_scare_level: 3, registration_date: "2021-01-01"}
+          - {customer_id: 2, email: "invalid@", age: 30, gender: "F", is_vip_member: false, preferred_scare_level: 2, registration_date: "2021-01-02"}
+          - {customer_id: 3, email: "double@@example.com", age: 35, gender: "M", is_vip_member: true, preferred_scare_level: 4, registration_date: "2021-01-03"}
+          - {customer_id: 4, email: "valid@unknown.com", age: 40, gender: "F", is_vip_member: false, preferred_scare_level: 1, registration_date: "2021-01-04"}
+      - input: ref('valid_domains')
+        rows:
+          - {domain: "example.com"}
+    expect:
+      rows:
+        - {customer_id: 1, email: "valid@example.com", is_valid_email: true}
+        - {customer_id: 2, email: "invalid@", is_valid_email: false}
+        - {customer_id: 4, email: "valid@unknown.com", is_valid_email: false}
+        - {customer_id: 3, email: "double@@example.com", is_valid_email: false}
